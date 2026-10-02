@@ -20,8 +20,8 @@
     });
     gsap.set(cs, { transformOrigin: '50% 50%', scale: 0 });
     var tl = gsap.timeline();
-    tl.to(rs, { scaleX: 1, scaleY: 1, duration: dur, ease: 'expo.inOut', stagger: dur / 9 })
-      .to(cs, { scale: 1, duration: .5, ease: 'back.out(3)', stagger: .08 }, '-=' + dur * .45);
+    tl.to(rs, { scaleX: 1, scaleY: 1, duration: dur, ease: 'expo.inOut', stagger: dur / 10 })
+      .to(cs, { scale: 1, duration: .4, ease: 'back.out(3)', stagger: .06 }, '-=' + dur * .5);
     return tl;
   }
   var firstVisit = true;
@@ -29,9 +29,9 @@
   function intro() {
     if (!loader) return startPage();
     if (!hasG || reduce || !firstVisit) { loader.remove(); return startPage(); }
-    var tl = animLogo(loader.querySelector('svg'), .9);
-    gsap.to(loader.querySelector('.bar i'), { scaleX: 1, duration: 1.4, ease: 'power2.inOut' });
-    tl.to(loader, { yPercent: -100, duration: .9, ease: 'expo.inOut', delay: .25, onStart: startPage, onComplete: function () { loader.remove(); } });
+    var tl = animLogo(loader.querySelector('svg'), .45);
+    gsap.to(loader.querySelector('.bar i'), { scaleX: 1, duration: .9, ease: 'power2.inOut' });
+    tl.to(loader, { yPercent: -100, duration: .65, ease: 'expo.inOut', onStart: startPage, onComplete: function () { loader.remove(); } }, '-=.15');
   }
 
   /* ---------- Smooth Scroll ---------- */
@@ -103,14 +103,13 @@
   /* ---------- Leistungen ---------- */
   var items = d.querySelectorAll('.svc-item'), stage = d.querySelectorAll('.svc-stage img'), capNo = d.querySelector('.svc-stage .cap b'), capT = d.querySelector('.svc-stage .cap span');
   function setSvc(i) {
-    items.forEach(function (it, k) { it.classList.toggle('on', k === i); it.setAttribute('aria-expanded', k === i); });
+    items.forEach(function (it, k) { it.classList.toggle('on', k === i); var b = it.querySelector('.svc-btn'); if (b) b.setAttribute('aria-expanded', k === i); });
     stage.forEach(function (im, k) { im.classList.toggle('on', k === i); });
     if (capNo) capNo.textContent = '0' + (i + 1);
-    if (capT && items[i]) capT.textContent = items[i].querySelector('h3').textContent;
+    if (capT && items[i]) capT.textContent = items[i].querySelector('.svc-btn').textContent;
   }
   items.forEach(function (it, i) {
-    it.addEventListener('click', function () { setSvc(i); });
-    it.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSvc(i); } });
+    it.addEventListener('click', function (e) { if (!e.target.closest('a')) setSvc(i); });
     if (fine) it.addEventListener('mouseenter', function () { setSvc(i); });
   });
   if (items.length) setSvc(0);
@@ -140,6 +139,7 @@
     var heroLogo = d.querySelector('.hero-logo');
     if (heroLogo) animLogo(heroLogo, 1.2);
     if (!hasG || reduce) {
+      html.classList.remove('js');
       d.querySelectorAll('[data-count]').forEach(function (el) { el.textContent = el.dataset.count + (el.dataset.suffix || ''); });
       return;
     }
@@ -147,9 +147,10 @@
 
     d.querySelectorAll('[data-split]').forEach(function (el) {
       var ws = splitWords(el); el.classList.add('split');
-      gsap.set(ws, { yPercent: 115 });
+      gsap.set(ws, { opacity: 0, y: 26, filter: 'blur(8px)' });
       var inHero = !!el.closest('.hero,.phero');
-      gsap.to(ws, { yPercent: 0, duration: 1.15, ease: 'expo.out', stagger: .045, delay: inHero ? .15 : 0,
+      gsap.to(ws, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .7, ease: 'power3.out', stagger: .045, delay: 0,
+        clearProps: 'filter,transform',
         scrollTrigger: inHero ? null : { trigger: el, start: 'top 88%' } });
     });
 
@@ -195,6 +196,19 @@
     if (big) gsap.fromTo(big, { xPercent: 8 }, { xPercent: -6, ease: 'none', scrollTrigger: { trigger: big, start: 'top bottom', end: 'bottom top', scrub: true } });
 
     w.addEventListener('load', function () { ScrollTrigger.refresh(); });
+    var guardT = 0;
+    function guard() {
+      clearTimeout(guardT);
+      guardT = setTimeout(function () {
+        d.querySelectorAll('[data-up], .split .w>span').forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < innerHeight && r.bottom > -innerHeight && +getComputedStyle(el).opacity < .05 && !gsap.isTweening(el))
+            gsap.to(el, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .6, ease: 'power2.out', clearProps: 'filter' });
+        });
+      }, 700);
+    }
+    w.addEventListener('scroll', guard, { passive: true });
+    setTimeout(guard, 2500);
   }
 
   /* ---------- Canvas-Effekte ---------- */
@@ -305,14 +319,29 @@
     }, { rootMargin: '100px' }).observe(cv);
   });
 
-  /* ---------- Kontaktformular → E-Mail-Programm ---------- */
+  /* ---------- Kontaktformular → E-Mail-Programm (mit Ersatz, falls keins öffnet) ---------- */
   var form = d.querySelector('form[data-mail]');
   if (form) form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var f = new FormData(form), lines = [];
-    ['Vorname', 'Nachname', 'Unternehmen', 'Position', 'Telefon', 'E-Mail'].forEach(function (k) { if (f.get(k)) lines.push(k + ': ' + f.get(k)); });
-    lines.push('', f.get('Nachricht') || '');
-    location.href = 'mailto:info@hettich-sicherheitsdienst.de?subject=' + encodeURIComponent('Anfrage über die Website') + '&body=' + encodeURIComponent(lines.join('\n'));
+    var f = new FormData(form), err = form.querySelector('.form-err'), lines = [];
+    var mail = (f.get('E-Mail') || '').trim(), msg = (f.get('Nachricht') || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail) || msg.length < 3) {
+      err.classList.add('show'); (msg.length < 3 ? form.querySelector('#fm') : form.querySelector('[name="E-Mail"]')).focus(); return;
+    }
+    err.classList.remove('show');
+    ['Vorname', 'Nachname', 'Unternehmen', 'Position', 'Telefon', 'E-Mail'].forEach(function (k) { var v = (f.get(k) || '').trim(); if (v) lines.push(k + ': ' + v); });
+    lines.push('', msg);
+    var body = lines.join('\n'), fb = form.querySelector('.form-fallback');
+    fb.querySelector('textarea').value = 'An: info@hettich-sicherheitsdienst.de\nBetreff: Anfrage über die Website\n\n' + body;
+    location.href = 'mailto:info@hettich-sicherheitsdienst.de?subject=' + encodeURIComponent('Anfrage über die Website') + '&body=' + encodeURIComponent(body);
+    setTimeout(function () { fb.classList.add('show'); }, 900);
+  });
+  var cp = d.querySelector('.form-fallback .copy');
+  if (cp) cp.addEventListener('click', function () {
+    var ta = d.querySelector('.form-fallback textarea'); ta.select();
+    var done = function () { cp.firstChild.textContent = 'Kopiert ✓ '; };
+    if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(done, function () { d.execCommand('copy'); done(); });
+    else { d.execCommand('copy'); done(); }
   });
 
   if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', intro); else intro();
