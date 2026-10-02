@@ -100,6 +100,20 @@
     });
   });
 
+  /* ---------- Footer-Spruch passt immer komplett in die Breite ---------- */
+  var big = d.querySelector('.ftr .big');
+  function fitBig() {
+    if (!big) return;
+    big.style.fontSize = '100px';
+    var avail = big.clientWidth, wMax = 0;
+    big.querySelectorAll('span').forEach(function (s) { wMax = Math.max(wMax, s.getBoundingClientRect().width); });
+    if (getComputedStyle(big.querySelector('span')).display !== 'block') wMax = big.scrollWidth;
+    if (wMax > 0) big.style.fontSize = Math.min(170, Math.floor(100 * avail / wMax * 0.97)) + 'px';
+  }
+  fitBig();
+  w.addEventListener('resize', fitBig);
+  if (d.fonts && d.fonts.ready) d.fonts.ready.then(fitBig);
+
   /* ---------- Leistungen ---------- */
   var items = d.querySelectorAll('.svc-item'), stage = d.querySelectorAll('.svc-stage img'), capNo = d.querySelector('.svc-stage .cap b'), capT = d.querySelector('.svc-stage .cap span');
   function setSvc(i) {
@@ -192,8 +206,6 @@
       });
     }
 
-    var big = d.querySelector('.ftr .big');
-    if (big) gsap.fromTo(big, { xPercent: 8 }, { xPercent: -6, ease: 'none', scrollTrigger: { trigger: big, start: 'top bottom', end: 'bottom top', scrub: true } });
 
     w.addEventListener('load', function () { ScrollTrigger.refresh(); });
     var guardT = 0;

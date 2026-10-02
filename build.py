@@ -117,7 +117,7 @@ def header(fn):
 def footer():
     return f'''<footer class="ftr">
  <div class="wrap">
-  <div class="big" aria-hidden="true">Weil Sicherheit Vertrauen schafft.</div>
+  <div class="big" aria-hidden="true"><span>Weil Sicherheit</span> <span>Vertrauen schafft.</span></div>
   <div class="row">
    <div><a class="brand" href="index.html">{LOGO}<div><b>Hettich</b><span>Sicherheitsdienst</span></div></a>
     <p class="muted" style="font-size:14px;margin-top:18px;max-width:300px">Sicherheitsdienst für Ulm, Neu-Ulm und die Region: Ladendetektiv, Objektschutz, Testkäufe und individuelle Sicherheitslösungen.</p></div>
