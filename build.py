@@ -469,8 +469,8 @@ def vision():
 
 
 def kontakt():
-    fields = [('Vorname', 'text', '', 'given-name'), ('Nachname', 'text', '', 'family-name'), ('E-Mail', 'email', 'required', 'email'), ('Telefon', 'tel', '', 'tel'), ('Unternehmen', 'text', '', 'organization'), ('Position', 'text', '', 'organization-title')]
-    fl = ''.join(f'<div class="field"><input id="f{i}" name="{n}" type="{t}" placeholder=" " {r} autocomplete="{ac}"><label for="f{i}">{n}{" *" if r else ""}</label></div>' for i, (n, t, r, ac) in enumerate(fields))
+    fields = [('Name', 'text', 'required', 'name'), ('Telefon', 'tel', '', 'tel'), ('Unternehmen', 'text', '', 'organization')]
+    fl = ''.join(f'<div class="field{" full" if n == "Unternehmen" else ""}"><input id="f{i}" name="{n}" type="{t}" placeholder=" " {r} autocomplete="{ac}"><label for="f{i}">{n}{" *" if r else ""}</label></div>' for i, (n, t, r, ac) in enumerate(fields))
     body = phero('Kontakt', 'Bereit für mehr <span class="gold">Sicherheit?</span>',
                  'Ob Ladendetektiv, Objektschutz oder individuelle Sicherheitslösung – nehmen Sie unverbindlich Kontakt auf und lassen Sie sich persönlich beraten.', 'globe', 'Kontakt') + f'''
 <section class="sec" style="padding-top:40px"><div class="wrap"><div class="frame"><div class="cols">
@@ -478,10 +478,10 @@ def kontakt():
  <div><form class="form" data-mail data-up aria-label="Anfrageformular">
   {fl}
   <div class="field full"><textarea id="fm" name="Nachricht" placeholder=" " required></textarea><label for="fm">Ihre Nachricht *</label></div>
-  <p class="form-err" role="alert">Bitte geben Sie eine gültige E-Mail-Adresse und Ihre Nachricht ein.</p>
+  <p class="form-err" role="alert">Bitte geben Sie Ihren Namen und Ihre Nachricht ein.</p>
   <div class="full" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center"><button class="btn btn-gold" type="submit">Anfrage senden<span class="ar">{I["arrow"]}</span></button>
-  <span class="note">Öffnet Ihr E-Mail-Programm mit der fertigen Anfrage. Hinweise zum <a href="datenschutz.html" style="color:var(--gold)">Datenschutz</a>.</span></div>
-  <div class="form-fallback" role="status"><p>Hat sich kein E-Mail-Programm geöffnet? Kopieren Sie Ihre Anfrage und senden Sie sie an <a href="mailto:{MAIL}" style="color:var(--gold)">{MAIL}</a> – oder rufen Sie uns einfach an: <a href="{TEL_HREF}" style="color:var(--gold)">{TEL}</a>.</p>
+  <span class="note">Öffnet Ihr E-Mail-Programm mit der fertigen Anfrage. <a href="datenschutz.html" style="color:var(--gold)">Datenschutz</a></span></div>
+  <div class="form-fallback" role="status"><p>Kein E-Mail-Programm geöffnet? Anfrage kopieren und an <a href="mailto:{MAIL}" style="color:var(--gold)">{MAIL}</a> senden – oder einfach anrufen: <a href="{TEL_HREF}" style="color:var(--gold)">{TEL}</a>.</p>
    <textarea readonly aria-label="Ihre Anfrage zum Kopieren"></textarea>
    <button class="btn btn-line btn-sm copy" type="button" style="margin-top:12px">Anfrage kopieren <span class="ar">{I["arrow"]}</span></button></div>
  </form></div>

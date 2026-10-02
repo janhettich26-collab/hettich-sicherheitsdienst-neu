@@ -419,3 +419,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .e404{min-height:80svh;display:flex;align-items:center}
 @media (max-width:1060px){.steps{grid-template-columns:1fr 1fr}.steps>div:nth-child(3){border-left:0;padding-left:0}}
 @media (max-width:820px){.facts,.two{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.steps>div,.steps>div+div{padding:30px 0 20px;border-left:0}.steps>div+div{border-top:1px solid var(--line)}.faq .a{padding-right:0}}
+
+/* Menü offen: Kopfleiste darf das Vollbild-Menü nicht einsperren (backdrop-filter/transform = neuer Bezugsrahmen) */
+.menu-open .hdr,.menu-open .hdr.solid{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important;background:transparent;border-color:transparent}
+html.menu-open,html.menu-open body{overflow:hidden;touch-action:none}
+.menu-open .fab,.menu-open .progress{opacity:0;pointer-events:none}
+@media (max-width:1060px){
+  .nav{z-index:1;padding:90px 24px 40px;overflow-y:auto;touch-action:pan-y}
+  .nav a{min-height:48px;display:flex;align-items:center}
+  .burger{z-index:3}
+  .brand{position:relative;z-index:3}
+}
+
+/* Lange Wörter/Adressen dürfen auf kleinen Handys umbrechen */
+.legal{grid-template-columns:minmax(0,1fr)}
+.legal .box,.prose,.crow b,.ftr li,.detail .tx,.faq .a,.card p{overflow-wrap:anywhere}
+p,li{hyphens:auto;-webkit-hyphens:auto}
+/* Brotkrumen: größere Tippfläche */
+.crumbs a{display:inline-block;padding:12px 6px;margin:-12px -6px}

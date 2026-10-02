@@ -69,9 +69,11 @@
   if (burger) burger.addEventListener('click', function () {
     html.classList.toggle('menu-open');
     var open = html.classList.contains('menu-open');
+    if (hdr) hdr.classList.remove('hide');
     burger.setAttribute('aria-expanded', open);
     if (lenis) open ? lenis.stop() : lenis.start();
   });
+  d.addEventListener('keydown', function (e) { if (e.key === 'Escape' && html.classList.contains('menu-open')) { html.classList.remove('menu-open'); if (burger) burger.setAttribute('aria-expanded', 'false'); if (lenis) lenis.start(); } });
   d.querySelectorAll('.nav a').forEach(function (a) { a.addEventListener('click', function () { html.classList.remove('menu-open'); if (lenis) lenis.start(); }); });
 
   /* ---------- Cursor + Magnet + Spotlight ---------- */
@@ -331,22 +333,27 @@
     }, { rootMargin: '100px' }).observe(cv);
   });
 
-  /* ---------- Kontaktformular → E-Mail-Programm (mit Ersatz, falls keins öffnet) ---------- */
+  /* ---------- Kontaktformular → E-Mail-Programm (Ersatzfenster nur, wenn keins aufgeht) ---------- */
   var form = d.querySelector('form[data-mail]');
   if (form) form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var f = new FormData(form), err = form.querySelector('.form-err'), lines = [];
-    var mail = (f.get('E-Mail') || '').trim(), msg = (f.get('Nachricht') || '').trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail) || msg.length < 3) {
-      err.classList.add('show'); (msg.length < 3 ? form.querySelector('#fm') : form.querySelector('[name="E-Mail"]')).focus(); return;
+    var f = new FormData(form), err = form.querySelector('.form-err');
+    var name = (f.get('Name') || '').trim(), tel = (f.get('Telefon') || '').trim(), firma = (f.get('Unternehmen') || '').trim(), msg = (f.get('Nachricht') || '').trim();
+    if (name.length < 2 || msg.length < 3) {
+      err.classList.add('show'); (name.length < 2 ? form.querySelector('[name="Name"]') : form.querySelector('#fm')).focus(); return;
     }
     err.classList.remove('show');
-    ['Vorname', 'Nachname', 'Unternehmen', 'Position', 'Telefon', 'E-Mail'].forEach(function (k) { var v = (f.get(k) || '').trim(); if (v) lines.push(k + ': ' + v); });
-    lines.push('', msg);
-    var body = lines.join('\n'), fb = form.querySelector('.form-fallback');
-    fb.querySelector('textarea').value = 'An: info@hettich-sicherheitsdienst.de\nBetreff: Anfrage über die Website\n\n' + body;
-    location.href = 'mailto:info@hettich-sicherheitsdienst.de?subject=' + encodeURIComponent('Anfrage über die Website') + '&body=' + encodeURIComponent(body);
-    setTimeout(function () { fb.classList.add('show'); }, 900);
+    var subject = 'Anfrage über die Website – ' + (firma || name);
+    var body = msg + '\n\n' + name + (firma ? '\n' + firma : '') + (tel ? '\nTelefon: ' + tel : '');
+    var fb = form.querySelector('.form-fallback');
+    fb.classList.remove('show');
+    fb.querySelector('textarea').value = 'Betreff: ' + subject + '\n\n' + body;
+    var left = false, mark = function () { left = true; };
+    w.addEventListener('blur', mark, { once: true });
+    d.addEventListener('visibilitychange', mark, { once: true });
+    w.addEventListener('pagehide', mark, { once: true });
+    location.href = 'mailto:info@hettich-sicherheitsdienst.de?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    setTimeout(function () { if (!left && !d.hidden) { fb.classList.add('show'); } }, 1600);
   });
   var cp = d.querySelector('.form-fallback .copy');
   if (cp) cp.addEventListener('click', function () {
