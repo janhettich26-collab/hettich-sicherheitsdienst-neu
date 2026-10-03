@@ -34,6 +34,7 @@ SITEMAP = []
 ORG = {"@type": "SecurityService", "@id": BASE + "#firma", "name": "Hettich Sicherheitsdienst", "url": BASE,
        "logo": BASE + "img/icon-512.png", "image": BASE + "img/og.jpg", "telephone": "+49 171 7449939", "email": MAIL,
        "slogan": "Weil Sicherheit Vertrauen schafft.", "founder": {"@type": "Person", "name": "Jan Hettich"},
+       "sameAs": ["https://www.wlw.de/de/company-overview/0e1f69e2-b47b-4038-abb5-3dd75badafe1"],
        "address": {"@type": "PostalAddress", "streetAddress": "Kapellenstraße 1", "postalCode": "89269", "addressLocality": "Vöhringen", "addressRegion": "Bayern", "addressCountry": "DE"},
        "geo": {"@type": "GeoCoordinates", "latitude": 48.2803, "longitude": 10.0839},
        "areaServed": [{"@type": "City", "name": o} for o in ORT[:8]] + [{"@type": "AdministrativeArea", "name": n} for n in ["Alb-Donau-Kreis", "Landkreis Neu-Ulm", "Landkreis Biberach"]],
@@ -220,8 +221,7 @@ def index():
             ('badge', 'Professionalität', 'Unsere Mitarbeiter sind geschult, erfahren und handeln nach klaren Standards – in jedem Einsatzgebiet.'),
             ('lock', 'Vertrauen', 'Verlässlichkeit und Transparenz: Durch klare Kommunikation und konsequentes Handeln schaffen wir die Basis für langfristiges Vertrauen.')]
     cards = ''.join(f'<article class="card" data-up><div class="ic">{I[ic]}</div><h3>{t}</h3><p>{p}</p><span class="ln"></span></article>' for ic, t, p in vals)
-    items = ''.join(f'''<div class="svc-item"><span class="no" aria-hidden="true">0{i+1}</span><div><h3><button class="svc-btn" type="button" aria-expanded="false">{t}</button></h3><div class="svc-body"><p>{p}</p><a class="more" href="{u}">Mehr erfahren<span class="sr"> über {t}</span> {I["arrow"]}</a><div class="mimg"><img src="img/{im}-760.webp" alt="" loading="lazy" width="760" height="434"></div></div></div><span class="plus" aria-hidden="true">{I["plus"]}</span></div>''' for i, (t, im, u, p) in enumerate(SVC))
-    imgs = ''.join(f'<img src="img/{im}-1400.webp" alt="{t} – Hettich Sicherheitsdienst" loading="lazy" width="1344" height="768">' for t, im, u, p in SVC)
+    rows = ''.join(f'''<article class="srow" data-scan><div class="sim" aria-hidden="true"><img src="img/{im}-1400.webp" alt="" loading="lazy" width="1344" height="768"><span class="scan"></span><span class="vf"><i></i><i></i><i></i><i></i></span></div><div class="stx" data-up><span class="no">0{i+1}</span><h3>{t}</h3><p>{p}</p><a class="more" href="{u}">Mehr erfahren<span class="sr"> über {t}</span> {I["arrow"]}</a></div></article>''' for i, (t, im, u, p) in enumerate(SVC))
     mq = ''.join(f'<span>{w}<em>✦</em></span>' for w in ['Prävention', 'Diskretion', 'Professionalität', 'Vertrauen', 'Ladendetektiv', 'Objektschutz', 'Testkäufe', 'Ulm &amp; Neu-Ulm'] * 2)
     faq, faq_ld = faq_block(FAQ_START)
     body = f'''<section class="hero">
@@ -267,9 +267,7 @@ def index():
 <section class="sec" id="leistungen" style="padding-top:0">
  <div class="wrap">
   <div class="svc-head"><div><span class="eyebrow" data-up>Dienstleistungen</span><h2 class="h-l" data-split style="margin-top:16px">Was wir für Sie <span class="gold">schützen.</span></h2></div><div data-up>{btn("dienstleistungen.html", "Alle Leistungen im Detail", "line")}</div></div>
-  <div class="svc">
-   <div class="svc-list">{items}</div>
-   <div class="svc-stage" aria-hidden="true">{imgs}<div class="cap"><span>Ladendetektiv</span><b>01</b></div></div>
+  <div class="svc2">{rows}</div>
   </div>
  </div>
 </section>

@@ -82,7 +82,7 @@
     var cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
     w.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; }, { passive: true });
     (function loop() { cx += (tx - cx) * .2; cy += (ty - cy) * .2; cur.style.transform = 'translate(' + cx + 'px,' + cy + 'px)'; requestAnimationFrame(loop); })();
-    d.querySelectorAll('a,button,.svc-item').forEach(function (el) {
+    d.querySelectorAll('a,button:not(.svc-btn)').forEach(function (el) {
       el.addEventListener('mouseenter', function () { cur.classList.add('big'); });
       el.addEventListener('mouseleave', function () { cur.classList.remove('big'); });
     });
@@ -116,7 +116,14 @@
   w.addEventListener('resize', fitBig);
   if (d.fonts && d.fonts.ready) d.fonts.ready.then(fitBig);
 
-  /* ---------- Leistungen ---------- */
+  /* ---------- Leistungen: Scan einmal auslösen, sobald sichtbar ---------- */
+  var scans = d.querySelectorAll('[data-scan]');
+  if (w.IntersectionObserver && !reduce) {
+    var sio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('seen'); sio.unobserve(e.target); } }); }, { threshold: .35 });
+    scans.forEach(function (el) { sio.observe(el); });
+  } else scans.forEach(function (el) { el.classList.add('seen'); });
+
+  /* ---------- Leistungen (alt) ---------- */
   var items = d.querySelectorAll('.svc-item'), stage = d.querySelectorAll('.svc-stage img'), capNo = d.querySelector('.svc-stage .cap b'), capT = d.querySelector('.svc-stage .cap span');
   function setSvc(i) {
     items.forEach(function (it, k) { it.classList.toggle('on', k === i); var b = it.querySelector('.svc-btn'); if (b) b.setAttribute('aria-expanded', k === i); });
@@ -126,7 +133,6 @@
   }
   items.forEach(function (it, i) {
     it.addEventListener('click', function (e) { if (!e.target.closest('a')) setSvc(i); });
-    if (fine) it.addEventListener('mouseenter', function () { setSvc(i); });
   });
   if (items.length) setSvc(0);
 
