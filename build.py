@@ -268,7 +268,6 @@ def index():
  <div class="wrap">
   <div class="svc-head"><div><span class="eyebrow" data-up>Dienstleistungen</span><h2 class="h-l" data-split style="margin-top:16px">Was wir für Sie <span class="gold">schützen.</span></h2></div><div data-up>{btn("dienstleistungen.html", "Alle Leistungen im Detail", "line")}</div></div>
   <div class="svc2">{rows}</div>
-  </div>
  </div>
 </section>
 
