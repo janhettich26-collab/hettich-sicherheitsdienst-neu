@@ -221,7 +221,7 @@ def index():
             ('badge', 'Professionalität', 'Unsere Mitarbeiter sind geschult, erfahren und handeln nach klaren Standards – in jedem Einsatzgebiet.'),
             ('lock', 'Vertrauen', 'Verlässlichkeit und Transparenz: Durch klare Kommunikation und konsequentes Handeln schaffen wir die Basis für langfristiges Vertrauen.')]
     cards = ''.join(f'<article class="card" data-up><div class="ic">{I[ic]}</div><h3>{t}</h3><p>{p}</p><span class="ln"></span></article>' for ic, t, p in vals)
-    rows = ''.join(f'''<article class="srow" data-scan><div class="sim" aria-hidden="true"><img src="img/{im}-1400.webp" alt="" loading="lazy" width="1344" height="768"><span class="scan"></span><span class="vf"><i></i><i></i><i></i><i></i></span></div><div class="stx" data-up><span class="no">0{i+1}</span><h3>{t}</h3><p>{p}</p><a class="more" href="{u}">Mehr erfahren<span class="sr"> über {t}</span> {I["arrow"]}</a></div></article>''' for i, (t, im, u, p) in enumerate(SVC))
+    rows = ''.join(f'''<article class="srow" data-scan><div class="sim" aria-hidden="true"><img src="img/{im}-1400.webp?v=2" alt="" loading="lazy" width="1344" height="768"><span class="scan"></span><span class="vf"><i></i><i></i><i></i><i></i></span></div><div class="stx" data-up><span class="no">0{i+1}</span><h3>{t}</h3><p>{p}</p><a class="more" href="{u}">Mehr erfahren<span class="sr"> über {t}</span> {I["arrow"]}</a></div></article>''' for i, (t, im, u, p) in enumerate(SVC))
     mq = ''.join(f'<span>{w}<em>✦</em></span>' for w in ['Prävention', 'Diskretion', 'Professionalität', 'Vertrauen', 'Ladendetektiv', 'Objektschutz', 'Testkäufe', 'Ulm &amp; Neu-Ulm'] * 2)
     faq, faq_ld = faq_block(FAQ_START)
     body = f'''<section class="hero">
@@ -315,7 +315,7 @@ def landing(fn, crumb, eyebrow, h1, lead, fx, intro_h, intro_ps, checks_h, check
     body = phero(eyebrow, h1, lead, fx, crumb) + f'''
 <section class="sec" style="padding-top:40px"><div class="wrap"><div class="two">
  <div><h2 class="h-l" data-split>{intro_h}</h2>{"".join(f'<p data-up class="muted" style="margin-top:18px">{p}</p>' for p in intro_ps)}</div>
- <div class="detail" style="margin:0;grid-template-columns:1fr" data-up><div class="im" style="min-height:380px"><img data-par src="img/{img}-1400.webp" alt="{service_name} – Hettich Sicherheitsdienst Ulm" loading="lazy" width="1344" height="768"></div></div>
+ <div class="detail" style="margin:0;grid-template-columns:1fr" data-up><div class="im" style="min-height:380px"><img data-par src="img/{img}-1400.webp?v=2" alt="{service_name} – Hettich Sicherheitsdienst Ulm" loading="lazy" width="1344" height="768"></div></div>
 </div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="frame" style="padding:clamp(28px,5vw,72px)">
  <span class="eyebrow" data-up>Leistungsumfang</span><h2 class="h-l" data-split style="margin:16px 0 30px">{checks_h}</h2>
@@ -430,7 +430,7 @@ def dienstleistungen():
       'Ob im Einzelhandel, bei Veranstaltungen oder im Objektschutz – wir passen uns Ihren Strukturen an und arbeiten unauffällig im Hintergrund. Unser Ziel: maximale Sicherheit bei minimaler Störung Ihres Betriebsablaufs.',
       'Durch enge Abstimmung und klare Kommunikation fügen wir uns reibungslos in Ihr bestehendes Team ein.'),
     ]
-    blocks = ''.join(f'''<article class="detail" data-up{f' id="{aid}"' if aid else ''}><div class="im"><img data-par src="img/{im}-1400.webp" alt="{t} – Hettich Sicherheitsdienst Ulm" loading="lazy" width="1344" height="768"></div>
+    blocks = ''.join(f'''<article class="detail" data-up{f' id="{aid}"' if aid else ''}><div class="im"><img data-par src="img/{im}-1400.webp?v=2" alt="{t} – Hettich Sicherheitsdienst Ulm" loading="lazy" width="1344" height="768"></div>
 <div class="tx"><span class="no">0{i+1} — {sub}</span><h2>{t}</h2><p>{p1}</p><p class="muted">{p2}</p><div class="tags">{"".join(f"<span>{x}</span>" for x in tags)}</div><div>{btn(u, "Mehr erfahren" if u != "kontakt.html" else "Jetzt anfragen", "line", "btn-sm")}</div></div></article>''' for i, (t, sub, im, tags, u, aid, p1, p2) in enumerate(D))
     body = phero('Unsere Dienstleistungen', 'Ladendetektiv, Objektschutz &amp; <span class="gold">Sicherheit</span> in Ulm und Umgebung.',
                  'Der Hettich Sicherheitsdienst ist Ihr Partner für diskrete, professionelle Sicherheit – vom Supermarkt bis zum Firmengelände.', crumb='Dienstleistungen') + \
@@ -542,7 +542,7 @@ def datum(iso):
 
 
 def blog():
-    cards = ''.join(f'''<a class="post" href="{fn}" data-up><div class="im"><img src="img/{im}-760.webp" alt="" loading="lazy" width="760" height="434"></div><div class="tx"><span class="meta">{datum(dt)} · {rt}</span><h2>{t}</h2><p>{teaser}</p><span class="more">Weiterlesen {I["arrow"]}</span></div></a>''' for fn, old, t, dt, rt, im, teaser, _ in POSTS)
+    cards = ''.join(f'''<a class="post" href="{fn}" data-up><div class="im"><img src="img/{im}-760.webp?v=2" alt="" loading="lazy" width="760" height="434"></div><div class="tx"><span class="meta">{datum(dt)} · {rt}</span><h2>{t}</h2><p>{teaser}</p><span class="more">Weiterlesen {I["arrow"]}</span></div></a>''' for fn, old, t, dt, rt, im, teaser, _ in POSTS)
     body = phero('Der Sicherheitsblog', 'Prävention, Schutz &amp; <span class="gold">Vertrauen.</span>',
                  'Wissen aus der Praxis: Ladendetektiv, Objektschutz und Testkäufe – verständlich erklärt.', crumb='Sicherheitsblog') + \
         f'<section class="sec" style="padding-top:40px"><div class="wrap"><div class="posts">{cards}</div></div></section>' + cta_block()
@@ -552,12 +552,12 @@ def blog():
         others = ''.join(f'<li><a href="{f2}">{t2}</a></li>' for f2, o2, t2, *_ in POSTS if f2 != fn)
         body = f'''<section class="phero" style="padding-bottom:40px"><canvas class="fx" data-fx="waves" aria-hidden="true"></canvas><div class="wrap"><nav class="crumbs" aria-label="Brotkrumen" data-up><a href="index.html">Start</a> / <a href="blog.html">Sicherheitsblog</a></nav><span class="eyebrow" data-up><time datetime="{dt}">{datum(dt)}</time> · {rt}</span><h1 class="h-l" data-split style="max-width:1000px">{t}</h1></div></section>
 <section class="sec" style="padding-top:10px"><div class="wrap">
- <div class="article-img" data-up><img src="img/{im}-1400.webp" alt="" width="1344" height="768"></div>
+ <div class="article-img" data-up><img src="img/{im}-1400.webp?v=2" alt="" width="1344" height="768"></div>
  <article class="prose" data-up>{html}
   <h2>Weitere Beiträge</h2><ul>{others}</ul>
  </article>
 </div></section>''' + cta_block()
-        art = {"@type": "BlogPosting", "headline": t, "datePublished": dt, "dateModified": "2026-10-02", "image": BASE + f"img/{im}-1400.webp",
+        art = {"@type": "BlogPosting", "headline": t, "datePublished": dt, "dateModified": "2026-10-02", "image": BASE + f"img/{im}-1400.webp?v=2",
                "author": {"@type": "Person", "name": "Jan Hettich"}, "publisher": {"@id": BASE + "#firma"}, "mainEntityOfPage": BASE + fn, "inLanguage": "de-DE", "description": teaser}
         seo = {'blog-objektschutz.html': 'Objektschutz erklärt: mehr als nur Wachschutz | Hettich',
                'blog-testkaeufe.html': 'Testkäufe im Handel: warum sie so wichtig sind | Hettich',
