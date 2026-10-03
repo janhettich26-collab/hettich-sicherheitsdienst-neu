@@ -575,6 +575,7 @@ def legal():
  <div class="box" data-up><h2><span>05</span>Verantwortlich für den Inhalt</h2><p>Verantwortlich nach § 18 Abs. 2 MStV: Jan Hettich, Anschrift wie oben.</p></div>
  <div class="box" data-up><h2><span>06</span>Haftung</h2><p>Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Für Inhalte verlinkter externer Seiten ist stets der jeweilige Anbieter verantwortlich.</p></div>
  <div class="box" data-up><h2><span>07</span>Verbraucherstreitbeilegung</h2><p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p></div>
+ <div class="box" data-up><h2><span>08</span>Bildnachweis</h2><p>Fotos: rawpixel.com und StockSnap.io (u. a. Vladimir Kudinov) – gemeinfrei unter CC0 1.0. Logo: Hettich Sicherheitsdienst.</p></div>
 </div>'''
     pl = lambda t, lead, crumb: f'''<section class="phero"><canvas class="fx" data-fx="waves" aria-hidden="true"></canvas><div class="wrap"><nav class="crumbs" aria-label="Brotkrumen" data-up><a href="index.html">Start</a> / {crumb}</nav><span class="eyebrow" data-up>Rechtliches</span><h1 class="h-l" data-split>{t}</h1><p class="lead" data-up>{lead}</p></div></section>'''
     page('impressum.html', 'Impressum | Hettich Sicherheitsdienst', 'Impressum des Hettich Sicherheitsdienstes, Kapellenstraße 1, 89269 Vöhringen – Bewachungsunternehmen nach § 34a GewO.',
