@@ -28,7 +28,7 @@ I = {
 }
 
 NAV = [('index.html', 'Start'), ('dienstleistungen.html', 'Dienstleistungen'), ('vision.html', 'Vision'), ('blog.html', 'Sicherheitsblog')]
-LEIST = [('ladendetektiv-ulm.html', 'Ladendetektiv'), ('objektschutz-ulm.html', 'Objektschutz &amp; Wachdienst'), ('testkaeufe.html', 'Testkäufe'), ('dienstleistungen.html#individuell', 'Veranstaltungen &amp; mehr')]
+LEIST = [('ladendetektiv-ulm.html', 'Ladendetektiv'), ('objektschutz-ulm.html', 'Objektschutz &amp; Wachdienst'), ('revierdienst-ulm.html', 'Revierdienst'), ('testkaeufe.html', 'Testkäufe'), ('sicherheitsdienst-neu-ulm.html', 'Sicherheitsdienst Neu-Ulm'), ('dienstleistungen.html#individuell', 'Veranstaltungen &amp; mehr')]
 SITEMAP = []
 
 ORG = {"@type": "SecurityService", "@id": BASE + "#firma", "name": "Hettich Sicherheitsdienst", "url": BASE,
@@ -194,7 +194,7 @@ def area_block():
     chips = ''.join(f'<span{mc if o in ("Ulm", "Neu-Ulm") else ""}>{o}</span>' for o in ORT)
     return f'''<section class="sec" id="einsatzgebiet" style="padding-top:0"><div class="wrap"><div class="two">
  <div><span class="eyebrow" data-up>Einsatzgebiet</span><h2 class="h-l" data-split style="margin-top:16px">Ihr Sicherheitsdienst für Ulm, Neu-Ulm <span class="gold">und die Region.</span></h2></div>
- <div><p data-up class="muted">Unser Sitz ist in Vöhringen (Landkreis Neu-Ulm). Von hier aus sind wir schnell in Ulm, Neu-Ulm, im Alb-Donau-Kreis, im Landkreis Neu-Ulm und bis Biberach im Einsatz – für Einzelhandel, Gewerbe und Veranstalter.</p>
+ <div><p data-up class="muted">Unser Sitz ist in Vöhringen (Landkreis Neu-Ulm). Von hier aus sind wir schnell in Ulm, Neu-Ulm, im Alb-Donau-Kreis, im Landkreis Neu-Ulm und bis Biberach im Einsatz – für Einzelhandel, Gewerbe und Veranstalter. Mehr dazu: <a href="sicherheitsdienst-neu-ulm.html" style="color:var(--gold)">Sicherheitsdienst Neu-Ulm</a>.</p>
  <div class="area" data-up>{chips}<span>und Umgebung</span></div></div>
 </div></div></section>'''
 
@@ -373,7 +373,7 @@ def objektschutz():
              'Der Hettich Sicherheitsdienst plant den Objektschutz passend zu Ihrem Gelände: stationär am Eingang, als mobile Kontrollgänge oder als Revierdienst über mehrere Objekte hinweg – auf Wunsch abgestimmt mit Ihrer vorhandenen Alarm- und Videotechnik.'],
             'Unsere Leistungen im Objektschutz',
             [('Stationärer Objektschutz', 'Festposten am Eingang oder im Objekt'),
-             ('Kontrollgänge &amp; Revierdienst', 'regelmäßige Rundgänge mit Kontrollbericht und Zeitstempel'),
+             ('Kontrollgänge &amp; Revierdienst', 'regelmäßige Rundgänge mit Kontrollbericht und Zeitstempel – <a href="revierdienst-ulm.html" style="color:var(--gold)">mehr zum Revierdienst</a>'),
              ('Nacht und Wochenende', 'Bewachung außerhalb Ihrer Betriebszeiten'),
              ('Baustellenbewachung', 'Schutz vor Diebstahl, Vandalismus und unbefugtem Betreten'),
              ('Empfangs- und Pfortendienst', 'Besucherempfang, Ausweis- und Zutrittskontrolle, Schlüsselverwaltung'),
@@ -410,6 +410,54 @@ def testkaeufe():
             'Testkäufe im Einzelhandel | Hettich Sicherheitsdienst Ulm',
             'Testkäufe für den Einzelhandel in Ulm & Neu-Ulm: Kassenabläufe, Warensicherung und Service realistisch prüfen – mit schriftlichem Bericht. Jetzt anfragen!',
             'testkauf', 'Testkäufe im Einzelhandel')
+
+
+def revierdienst():
+    landing('revierdienst-ulm.html', 'Revierdienst', 'Revierdienst &amp; Kontrollfahrten Ulm',
+            'Revierdienst für Ulm, Neu-Ulm <span class="gold">&amp; Umgebung.</span>',
+            'Regelmäßige Kontrollfahrten zu Ihrem Objekt – nachts, am Wochenende und in festen oder wechselnden Zeitfenstern. Wirtschaftlicher als eine feste Wache und trotzdem sichtbar präsent.', 'rings',
+            'Sichtbare Kontrolle, <span class="gold">ohne feste Wache.</span>',
+            ['Nicht jedes Objekt braucht eine Sicherheitskraft rund um die Uhr. Beim Revierdienst fahren wir Ihr Gelände in festgelegten oder unregelmäßigen Abständen an, prüfen Türen, Tore, Fenster und Zäune und dokumentieren jede Kontrolle.',
+             'So entsteht ein dauerhafter Abschreckungseffekt zu einem Bruchteil der Kosten einer festen Bewachung – ideal für Firmengelände, Lagerhallen, Baustellen und Gewerbeobjekte in Ulm, Neu-Ulm und der Region.'],
+            'Was unser Revierdienst leistet',
+            [('Kontrollfahrten', 'feste oder bewusst wechselnde Zeiten, damit kein Muster erkennbar ist'),
+             ('Außen- und Innenkontrolle', 'Türen, Tore, Fenster, Zäune und auf Wunsch Innenrundgänge'),
+             ('Kontrollbericht mit Zeitstempel', 'jede Kontrolle wird nachvollziehbar dokumentiert'),
+             ('Schließ- und Öffnungsdienst', 'Auf- und Abschließen Ihres Objekts zu vereinbarten Zeiten'),
+             ('Alarmverfolgung', 'Erstreaktion bei Alarm, auf Wunsch in Abstimmung mit Ihrer Alarmtechnik'),
+             ('Meldung von Auffälligkeiten', 'technische Mängel, offene Zugänge oder Schäden melden wir sofort')],
+            STEPS,
+            [('Was ist ein Revierdienst?', 'Beim Revierdienst kontrolliert eine Sicherheitskraft mehrere Objekte nacheinander in festgelegten oder wechselnden Zeitfenstern. Anders als beim Objektschutz ist sie nicht dauerhaft vor Ort.'),
+             ('Für wen lohnt sich ein Revierdienst?', 'Für Firmengelände, Lagerhallen, Baustellen, Parkplätze und Gewerbeobjekte, die außerhalb der Betriebszeiten gesichert werden sollen, ohne dass eine feste Wache nötig ist.'),
+             ('Wie oft wird kontrolliert?', 'Das legen wir gemeinsam fest – von einer Kontrolle pro Nacht bis zu mehreren Fahrten am Tag, an Werktagen, am Wochenende oder an Feiertagen.'),
+             ('Was kostet ein Revierdienst?', 'Der Preis hängt von der Zahl der Kontrollen, den Zeiten und dem Umfang je Kontrolle ab. Sie erhalten nach einem kurzen Gespräch ein unverbindliches Angebot.')],
+            'Revierdienst Ulm & Neu-Ulm | Hettich Sicherheitsdienst',
+            'Revierdienst in Ulm & Neu-Ulm: Kontrollfahrten nachts und am Wochenende, Kontrollbericht mit Zeitstempel, Schließdienst und Alarmverfolgung. Jetzt anfragen!',
+            'gebaeude', 'Revierdienst')
+
+
+def neu_ulm():
+    landing('sicherheitsdienst-neu-ulm.html', 'Neu-Ulm', 'Sicherheitsdienst Neu-Ulm',
+            'Ihr Sicherheitsdienst <span class="gold">für Neu-Ulm.</span>',
+            'Ladendetektiv, Objektschutz, Revierdienst und Testkäufe für Unternehmen in Neu-Ulm und im Landkreis Neu-Ulm – vom Inhaber geführt, mit Sitz im Landkreis.', 'waves',
+            'Aus dem Landkreis <span class="gold">für den Landkreis.</span>',
+            ['Der Hettich Sicherheitsdienst hat seinen Sitz in Vöhringen und damit mitten im Landkreis Neu-Ulm. Nach Neu-Ulm, Senden, Weißenhorn oder Illertissen sind es nur wenige Minuten – kurze Wege, die bei kurzfristigen Einsätzen den Unterschied machen.',
+             'Als zugelassenes Bewachungsunternehmen nach § 34a GewO unterliegen wir der Aufsicht des Landratsamts Neu-Ulm. Für Einzelhandel, Gewerbe und Veranstalter in Neu-Ulm sind wir damit ein Ansprechpartner direkt aus der Region – persönlich, erreichbar und verlässlich.'],
+            'Unsere Leistungen in Neu-Ulm',
+            [('Ladendetektiv', 'diskrete Ladendetektive für Supermärkte, Drogerien und Fachhandel in Neu-Ulm'),
+             ('Objektschutz &amp; Wachdienst', 'Festposten und Kontrollgänge für Firmengelände und Lager'),
+             ('Revierdienst', 'Kontrollfahrten nachts und am Wochenende im ganzen Landkreis'),
+             ('Testkäufe', 'realistische Prüfung von Kassenabläufen und Warensicherung'),
+             ('Veranstaltungsschutz', 'Einlass- und Zutrittskontrollen für Veranstaltungen'),
+             ('Empfangs- und Pfortendienst', 'Besucherempfang und Zutrittssteuerung für Unternehmen')],
+            STEPS,
+            [('Ist der Hettich Sicherheitsdienst in Neu-Ulm tätig?', 'Ja. Neu-Ulm und der gesamte Landkreis Neu-Ulm gehören zu unserem Kerngebiet – ebenso Ulm, der Alb-Donau-Kreis und der Raum Biberach.'),
+             ('Wo sitzt der Hettich Sicherheitsdienst?', 'Unser Sitz ist in Vöhringen im Landkreis Neu-Ulm. Von dort sind wir schnell in Neu-Ulm, Senden, Weißenhorn, Illertissen und Ulm.'),
+             ('Welche Behörde ist für den Hettich Sicherheitsdienst zuständig?', 'Als Bewachungsunternehmen nach § 34a GewO unterliegen wir der Aufsicht des Landratsamts Neu-Ulm. Im Bewacherregister sind wir unter der ID 18865 eingetragen.'),
+             ('Wie schnell können Sie in Neu-Ulm starten?', 'Rufen Sie uns an – durch die kurzen Wege im Landkreis planen wir Einsätze auch kurzfristig, sofern es die Einsatzlage zulässt.')],
+            'Sicherheitsdienst Neu-Ulm | Hettich Sicherheitsdienst',
+            'Sicherheitsdienst in Neu-Ulm: Ladendetektiv, Objektschutz, Revierdienst und Testkäufe – inhabergeführt mit Sitz im Landkreis Neu-Ulm. Jetzt anfragen!',
+            'objektschutz', 'Sicherheitsdienst Neu-Ulm')
 
 
 def dienstleistungen():
@@ -533,6 +581,19 @@ POSTS = [
 <h2>Fazit</h2>
 <p>Verluste durch Diebstahl lassen sich wirksam reduzieren – durch eine Kombination aus physischer Präsenz, Technik und gezielter Prozesskontrolle. Als inhabergeführter Sicherheitsdienst in Ulm unterstützen wir Sie dabei – lokal, persönlich und effizient.</p>
 <p class="src">Quelle: <a href="https://www.ehi.org/themen/inventurdifferenzen-sicherheit/" rel="noopener" target="_blank">EHI Retail Institute, Inventurdifferenzen 2025</a></p>'''),
+ ('blog-was-ist-ein-testkauf.html', 'post/was-ist-ein-testkauf.html', 'Was ist ein Testkauf? Ablauf, Nutzen und worauf es ankommt', '2026-10-03', '3 Min. Lesezeit', 'testkauf',
+  'Was ist ein Testkauf, wie läuft er ab und was bringt er dem Einzelhandel? Ein verständlicher Überblick für Marktleiter und Inhaber.',
+  '''<p>Ein Testkauf ist ein geplanter, unangekündigter Einkauf durch eine geschulte Person, die sich wie ein ganz normaler Kunde verhält. Ziel ist nicht, jemanden zu überführen, sondern zu sehen, wie Abläufe im Alltag tatsächlich funktionieren – an der Kasse, bei der Warensicherung und im Kundenkontakt.</p>
+<h2>Was wird bei einem Testkauf geprüft?</h2>
+<ul><li><strong>Kassenabläufe:</strong> Wird korrekt kassiert? Wird der Einkaufswagen vollständig kontrolliert?</li><li><strong>Warensicherung:</strong> Sind gefährdete Artikel gesichert und im Blick?</li><li><strong>Aufmerksamkeit:</strong> Bemerkt das Team auffälliges Verhalten im Verkaufsraum?</li><li><strong>Service:</strong> Wie freundlich, hilfsbereit und kundenorientiert ist der Kontakt?</li></ul>
+<h2>Wie läuft ein Testkauf ab?</h2>
+<p>Zuerst legen wir gemeinsam fest, was geprüft werden soll – zum Beispiel bestimmte Kassen, Uhrzeiten oder Warengruppen. Dann finden die Testkäufe unangekündigt statt. Danach erhalten Sie einen schriftlichen Bericht mit den Beobachtungen und konkreten Verbesserungsvorschlägen.</p>
+<h2>Testkäufer, Mystery Shopping, Testeinkauf – ist das dasselbe?</h2>
+<p>Im Alltag werden die Begriffe oft gleich verwendet. Mystery Shopping meint meist die Prüfung von Service und Beratung. Im Sicherheitsbereich geht es beim Testkauf zusätzlich um Kassenabläufe, Warensicherung und Diebstahlprävention.</p>
+<h2>Was bringt ein Testkauf?</h2>
+<p>Ein Testkauf zeigt Schwachstellen, bevor sie zu Verlusten führen. Die Ergebnisse sind eine gute Grundlage für Mitarbeiterschulungen und helfen, Inventurdifferenzen zu senken. In Kombination mit einem <a href="ladendetektiv-ulm.html">Ladendetektiv</a> entsteht ein wirksames Schutzkonzept.</p>
+<h2>Fazit</h2>
+<p>Ein Testkauf ist kein Misstrauensbeweis gegen das Team, sondern ein Werkzeug zur Qualitätssicherung. Wer Abläufe regelmäßig realistisch prüft, schützt seine Ware und stärkt sein Team. Mehr dazu: <a href="testkaeufe.html">Testkäufe im Einzelhandel</a>.</p>'''),
 ]
 
 
@@ -559,7 +620,8 @@ def blog():
 </div></section>''' + cta_block()
         art = {"@type": "BlogPosting", "headline": t, "datePublished": dt, "dateModified": "2026-10-02", "image": BASE + f"img/{im}-1400.webp?v=2",
                "author": {"@type": "Person", "name": "Jan Hettich"}, "publisher": {"@id": BASE + "#firma"}, "mainEntityOfPage": BASE + fn, "inLanguage": "de-DE", "description": teaser}
-        seo = {'blog-objektschutz.html': 'Objektschutz erklärt: mehr als nur Wachschutz | Hettich',
+        seo = {'blog-was-ist-ein-testkauf.html': 'Was ist ein Testkauf? Ablauf & Nutzen | Hettich',
+               'blog-objektschutz.html': 'Objektschutz erklärt: mehr als nur Wachschutz | Hettich',
                'blog-testkaeufe.html': 'Testkäufe im Handel: warum sie so wichtig sind | Hettich',
                'blog-diebstahlpraevention.html': 'Diebstahlprävention im Einzelhandel: 4 Strategien | Hettich'}[fn]
         page(fn, seo, teaser, body, [art], [('blog.html', 'Sicherheitsblog'), (fn, t.split(' – ')[0])], prio='0.5')
@@ -616,5 +678,5 @@ def extras():
 
 
 if __name__ == '__main__':
-    index(); ladendetektiv(); objektschutz(); testkaeufe(); dienstleistungen(); vision(); kontakt(); blog(); legal(); extras()
+    index(); ladendetektiv(); objektschutz(); revierdienst(); neu_ulm(); testkaeufe(); dienstleistungen(); vision(); kontakt(); blog(); legal(); extras()
     print('fertig:', len(SITEMAP), 'Seiten,', 'LIVE' if LIVE else 'VORSCHAU (noindex)')
